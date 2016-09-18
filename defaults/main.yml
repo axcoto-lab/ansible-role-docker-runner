@@ -1,0 +1,6 @@
+---
+# defaults file for roles/docker_runner
+docker_runner_name: ""
+docker_runner_image: ""
+docker_runner_entry_point: ""
+docker_runner_cmd: ""

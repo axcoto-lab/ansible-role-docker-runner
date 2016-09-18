@@ -1,0 +1,14 @@
+---
+# tasks file for roles/docker_runner
+- name: Create systemd service
+  template: src=docker.service.j2 dest=/lib/systemd/system/{{ item.name }}.service
+  with_items: "{{ docker_runner_conf }}"
+
+- name: Enable docker container service
+  command: systemctl enable {{ item.name }}
+  with_items: "{{ docker_runner_conf }}"
+  notify: Reload daemon
+
+- name: Start systemd
+  command: systemctl restart {{ item.name }}
+  with_items: "{{ docker_runner_conf }}"

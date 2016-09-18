@@ -1,0 +1,4 @@
+---
+# handlers file for roles/docker_runner
+- name: Reload daemon
+  command: systemctl daemon-reload

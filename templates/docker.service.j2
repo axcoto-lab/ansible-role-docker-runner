@@ -1,0 +1,14 @@
+[Unit]
+Description=Docker runner for {{ item.name  }}
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill {{ item.name }}
+ExecStartPre=-/usr/bin/docker rm {{ item.name }}
+ExecStartPre=/usr/bin/docker pull {{ item.image }}
+ExecStart=/usr/bin/docker run {{ item.opts|default('') }} --name {{ item.name }} {{ item.image }} {{ item.entry_point|default('') }} {{ item.cmd|default('') }}
+
+[Install]
+WantedBy=multi-user.target
